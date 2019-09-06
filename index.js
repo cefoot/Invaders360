@@ -5,21 +5,9 @@ import {
   Text,
   View,
   VrButton,
+  Environment,
 } from 'react-360';
-
-// export default class Invaders360 extends React.Component {
-//   render() {
-//     return (
-//       <View style={styles.panel}>
-//         <View style={styles.greetingBox}>
-//           <Text style={styles.greeting}>
-//             Welcome to React 360
-//           </Text>
-//         </View>
-//       </View>
-//     );
-//   }
-// };
+import ModelView from './test3d';
 
 export default class Invaders360 extends React.Component {
   state = {
@@ -39,19 +27,27 @@ export default class Invaders360 extends React.Component {
 
   render() {
     return (
-      <View style={styles.panel}>
+      <View style={{
+        left: this.state.rot,
+        top: '600px',
+        backgroundColor: 'rgba(50, 255, 50, 0.4)',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
         <VrButton onClick={this._increment}
-          style={styles.greetingBox}>
-          <Text style={styles.greeting}>
+          style={styles.box}>
+          <Text style={styles.menuItem}>
             {`Push me`}
           </Text>
         </VrButton>
-        <View style={styles.greetingBox} style={{transform: [
-            {rotateZ : this.state.rot},
-            {rotateY : 120 + this.state.rot},
-            {rotateX : 240 + this.state.rot},
-            ]}}>
-          <Text style={styles.greeting}>
+        <View style={{
+          transform: [
+            // { rotateZ: this.state.rot },
+            { rotateY: 120 + this.state.rot * 2 },
+            // { rotateX: 240 + this.state.rot },
+          ]
+        }}>
+          <Text style={styles.menuItem}>
             {`Count: ${this.state.count}`}
           </Text>
         </View>
@@ -60,27 +56,66 @@ export default class Invaders360 extends React.Component {
   }
 }
 
+export class InvaderComponent extends React.Component {
+  state = {
+    dummy: 1,
+  };
+  render() {
+    return (
+      <View style={styles.fillPanel}>
+        <VrButton
+          style={styles.box}>
+          <Text style={styles.txt}>
+            {`Lorema Ipsum`}
+          </Text>
+        </VrButton>
+        <View style={styles.box} >
+          <Text style={styles.txt}>
+            {`BLABLA`}
+          </Text>
+        </View>
+      </View>
+    );
+  }
+}
+
+
+
+
+
+
 const styles = StyleSheet.create({
-  panel: {
+  fillPanel: {
     // Fill the entire surface
-    width: 1000,
-    height: 600,
-    backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: '4096',
+    height: '800',
+    backgroundColor: 'rgba(255, 120, 120, 0.4)',
+    // justifyContent: 'center',
+    // alignItems: 'center',
     // transform: [
     //   {rotateZ: 100},
     // ],
   },
-  greetingBox: {
-    padding: 20,
+  panel: {
+    left: '100px',
+    backgroundColor: 'rgba(50, 255, 50, 0.4)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  box: {
+    padding: 10,
     backgroundColor: '#000000',
     borderColor: '#639dda',
     borderWidth: 2,
   },
-  greeting: {
+  menuItem: {
+    fontSize: 30,
+  },
+  txt: {
     fontSize: 30,
   },
 });
 
 AppRegistry.registerComponent('Invaders360', () => Invaders360);
+AppRegistry.registerComponent('InvaderComponent', () => InvaderComponent);
+AppRegistry.registerComponent('ModelView', () => ModelView);
